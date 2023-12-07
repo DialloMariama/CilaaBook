@@ -17,6 +17,7 @@ class Bailleur extends Authenticatable
         "nom",
         "adresse",
         "email",
+        "image",
         "password",
         "statut",
         "telephone",

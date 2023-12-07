@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nom');
             $table->string('adresse');
             $table->string('telephone');
+            $table->string('image');
             $table->string('role')->default('porteurprojet');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

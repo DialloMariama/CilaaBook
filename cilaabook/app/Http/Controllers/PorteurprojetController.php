@@ -21,8 +21,12 @@ class PorteurprojetController extends Controller
            $porteurprojet-> nom = $request->nom;
            $porteurprojet-> email = $request->email;
            $porteurprojet-> telephone = $request->telephone;
-           $porteurprojet-> password = $request->password;
+           $porteurprojet-> password = Hash::make ($request->password);
            $porteurprojet-> adresse = $request->adresse;
+           $image = $request->file('image');
+           if ($image !== null && !$image->getError()) {
+            $porteurprojet->image = $image->store('images', 'public');
+           }
            $porteurprojet->save();  
 
             return response()->json([
@@ -41,27 +45,27 @@ class PorteurprojetController extends Controller
 
     /**
      * Login The User
-    //  * @param Request $request
-    //  * @return User
+    * @param Request $request
+    * @return Porteurprojet
      */
     public function login(LoginPorteurprojet $request)
     {
         try {
-            
+          
 
-            if(Auth::attempt($request->only(['email', 'password']))){
+            if(!Auth::guard('porteurprojet')->attempt($request->only(['email', 'password']))){
                 return response()->json([
                     'status' => true,
                     'message' => 'Email & Password does not match with our record.',
                 ], 401);
             }
 
-            $porteurprojet = Porteurprojet::where('email', $request->email)->first();
+            // $porteurprojet = Porteurprojet::where('email', $request->email)->first();
 
             return response()->json([
                 'status' => true,
-                'message' => 'Le porteur de est connecté avec succés',
-                'token' => $porteurprojet->createToken("API TOKEN")->plainTextToken
+                'message' => 'Le porteur de projet est connecté avec succés',
+                'token' =>Auth::guard('porteurprojet')->user()->createToken("API TOKEN")->plainTextToken
             ], 200);
 
         } catch (\Throwable $th) {
@@ -70,5 +74,12 @@ class PorteurprojetController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+    public function edit(){
+        
+       return response()->json([
+            'status'=> true,
+            'formLogin'=> route('login')
+        ]) ;
     }
 }

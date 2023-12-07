@@ -16,6 +16,7 @@ class Porteurprojet extends Authenticatable
         "nom",
         "adresse",
         "email",
+        "image",
         "password",
         "telephone",
     ];

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nom');
             $table->string('adresse');
             $table->string('telephone');
+            $table->string('image');
             $table->enum('statut', ['personne','entreprise']);
             $table->string('role')->default('bailleur');
             $table->string('email')->unique();
