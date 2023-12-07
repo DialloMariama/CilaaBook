@@ -1,13 +1,17 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\Porteurprojet as Authenticatable;
 
-class Porteurprojet extends Model
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Porteurprojet extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens, Notifiable;
+
     protected $fillable = [
         "nom",
         "adresse",
