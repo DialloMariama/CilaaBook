@@ -14,7 +14,7 @@ class creationCategorie extends Seeder
     public function run(): void
     {
         Categorie::create([
-         'nom' => 'developpement web'
+         'nom' => 'Marketing Digital'
         ]);
     }
 }
