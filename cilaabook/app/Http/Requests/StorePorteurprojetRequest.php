@@ -27,6 +27,7 @@ class StorePorteurprojetRequest extends FormRequest
             'nom' => 'required',
             'email' => 'required|email|unique:porteurprojets,email',
             'password' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
             'adresse' => 'required',
             'telephone' => 'required',
         ];

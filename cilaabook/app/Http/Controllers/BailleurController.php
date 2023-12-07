@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bailleur;
 use App\Http\Requests\LoginBailleur;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreBailleurRequest;
 use App\Http\Requests\UpdateBailleurRequest;
 
@@ -17,9 +18,13 @@ class BailleurController extends Controller
            $bailleur-> nom = $request->nom;
            $bailleur-> email = $request->email;
            $bailleur-> telephone = $request->telephone;
-           $bailleur-> password = $request->password;
+           $bailleur-> password = Hash::make ($request->password);
            $bailleur-> adresse = $request->adresse;
            $bailleur-> statut = $request->statut;
+           $image = $request->file('image');
+           if ($image !== null && !$image->getError()) {
+            $bailleur->image = $image->store('images', 'public');
+           }
            $bailleur->save();  
 
             return response()->json([
@@ -46,19 +51,18 @@ class BailleurController extends Controller
         try {
             
 
-            if(Auth::attempt($request->only(['email', 'password']))){
+            if(!Auth::guard('bailleur')->attempt($request->only(['email', 'password']))){
                 return response()->json([
                     'status' => true,
                     'message' => 'Email & Password does not match with our record.',
                 ], 401);
             }
 
-            $bailleur = Bailleur::where('email', $request->email)->first();
 
             return response()->json([
                 'status' => true,
                 'message' => 'Le bailleur est connecté avec succés',
-                'token' => $bailleur->createToken("API TOKEN")->plainTextToken
+                'token' =>Auth::guard('bailleur')->user()->createToken("API TOKEN")->plainTextToken
             ], 200);
 
         } catch (\Throwable $th) {
