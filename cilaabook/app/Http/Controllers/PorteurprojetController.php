@@ -3,64 +3,72 @@
 namespace App\Http\Controllers;
 
 use App\Models\Porteurprojet;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StorePorteurprojetRequest;
 use App\Http\Requests\UpdatePorteurprojetRequest;
+use App\Http\Requests\LoginPorteurprojet;
+
 
 class PorteurprojetController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function create(StorePorteurprojetRequest $request)
     {
-        //
+        try {    
+           $porteurprojet = new Porteurprojet();
+           $porteurprojet-> nom = $request->nom;
+           $porteurprojet-> email = $request->email;
+           $porteurprojet-> telephone = $request->telephone;
+           $porteurprojet-> password = $request->password;
+           $porteurprojet-> adresse = $request->adresse;
+           $porteurprojet->save();  
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Le porteur de projet a bien été inscrit',
+                'token' => $porteurprojet->createToken("API TOKEN")->plainTextToken
+            ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Login The User
+    //  * @param Request $request
+    //  * @return User
      */
-    public function create()
+    public function login(LoginPorteurprojet $request)
     {
-        //
-    }
+        try {
+            
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePorteurprojetRequest $request)
-    {
-        //
-    }
+            if(Auth::attempt($request->only(['email', 'password']))){
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Email & Password does not match with our record.',
+                ], 401);
+            }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Porteurprojet $porteurprojet)
-    {
-        //
-    }
+            $porteurprojet = Porteurprojet::where('email', $request->email)->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Porteurprojet $porteurprojet)
-    {
-        //
-    }
+            return response()->json([
+                'status' => true,
+                'message' => 'Le porteur de est connecté avec succés',
+                'token' => $porteurprojet->createToken("API TOKEN")->plainTextToken
+            ], 200);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePorteurprojetRequest $request, Porteurprojet $porteurprojet)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Porteurprojet $porteurprojet)
-    {
-        //
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 }

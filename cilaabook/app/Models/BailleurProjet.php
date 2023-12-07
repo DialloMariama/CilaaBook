@@ -9,7 +9,7 @@ class BailleurProjet extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "user_id",
+        "bailleur_id",
         "projet_id",
     ];
    

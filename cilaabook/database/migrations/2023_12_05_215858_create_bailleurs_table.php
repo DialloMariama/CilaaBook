@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('bailleurs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->string('nom');
             $table->string('adresse');
             $table->string('telephone');
             $table->enum('statut', ['personne','entreprise']);
+            $table->string('role')->default('bailleur');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

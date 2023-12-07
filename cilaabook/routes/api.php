@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\BailleurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\PorteurprojetController;
+use App\Models\Porteurprojet;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('register',[PorteurprojetController::class,"create"]);
+Route::post('login',[PorteurprojetController::class,"login"]);
+
+Route::post('registerBailleur',[BailleurController::class,"create"]);
+Route::post('loginBailleur',[BailleurController::class,"login"]);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

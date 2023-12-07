@@ -3,10 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
-class StorePorteurprojetRequest extends FormRequest
+class LoginBailleur extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,11 @@ class StorePorteurprojetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required',
-            'email' => 'required|email|unique:porteurprojets,email',
-            'password' => 'required',
-            'adresse' => 'required',
-            'telephone' => 'required',
+            'email'=>'required|email|exists:bailleurs,email',
+            'password'=>'required'
         ];
     }
+
     public function failedValidation(validator $validator ){
         throw new HttpResponseException(response()->json([
             'success'=>false,
@@ -40,14 +38,14 @@ class StorePorteurprojetRequest extends FormRequest
             'errorList'=>$validator->errors()
         ]));
     }
-    public function messages(): array
-    {
+
+    public function messages(){
         return [
-            'nom.required'=> 'Le champs nom est obligatoire',
-            'email.required'=> 'Le champs email est obligatoire',
-            'adresse.required'=> 'Le champs adresse est obligatoire',
-            'telephone.required'=> 'Le champs telephone est obligatoire',
-            'password.required'=> 'Le champs mot de passe est obligatoire',
+            'email.required'=>'Le champs email est requis',
+            'email.exists'=>'Cet email ne se trouve pas dans la base de données',
+            'email.email'=>'format email invalide',
+            'password.required'=>'le mot de passe est requis'
+
         ];
     }
 }

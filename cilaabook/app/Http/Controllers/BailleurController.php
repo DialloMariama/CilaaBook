@@ -3,64 +3,69 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bailleur;
+use App\Http\Requests\LoginBailleur;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreBailleurRequest;
 use App\Http\Requests\UpdateBailleurRequest;
 
 class BailleurController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function create(StoreBailleurRequest $request)
     {
-        //
+        try {    
+           $bailleur = new bailleur();
+           $bailleur-> nom = $request->nom;
+           $bailleur-> email = $request->email;
+           $bailleur-> telephone = $request->telephone;
+           $bailleur-> password = $request->password;
+           $bailleur-> adresse = $request->adresse;
+           $bailleur-> statut = $request->statut;
+           $bailleur->save();  
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Le bailleur a bien été inscrit',
+                'token' => $bailleur->createToken("API TOKEN")->plainTextToken
+            ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Login The User
+     * @param Request $request
+     * @return Bailleur
      */
-    public function create()
+    public function login(LoginBailleur $request)
     {
-        //
-    }
+        try {
+            
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreBailleurRequest $request)
-    {
-        //
-    }
+            if(Auth::attempt($request->only(['email', 'password']))){
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Email & Password does not match with our record.',
+                ], 401);
+            }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Bailleur $bailleur)
-    {
-        //
-    }
+            $bailleur = Bailleur::where('email', $request->email)->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Bailleur $bailleur)
-    {
-        //
-    }
+            return response()->json([
+                'status' => true,
+                'message' => 'Le bailleur est connecté avec succés',
+                'token' => $bailleur->createToken("API TOKEN")->plainTextToken
+            ], 200);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateBailleurRequest $request, Bailleur $bailleur)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Bailleur $bailleur)
-    {
-        //
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 }

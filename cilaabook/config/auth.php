@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'porteurprojet' => [
+            'driver' => 'session',
+            'provider' => 'porteurprojets',
+        ],
+        'bailleur' => [
+            'driver' => 'session',
+            'provider' => 'bailleurs',
+        ],
     ],
 
     /*
@@ -64,6 +72,15 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'porteurprojets' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Porteurprojet::class,
+        ],
+        'bailleurs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Bailleur::class,
+        ],
+
 
         // 'users' => [
         //     'driver' => 'database',
@@ -93,6 +110,18 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'porteurprojets' => [
+            'provider' => 'porteurprojets',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'bailleurs' => [
+            'provider' => 'bailleurs',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
