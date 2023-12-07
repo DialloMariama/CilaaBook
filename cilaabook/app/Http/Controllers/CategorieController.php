@@ -76,6 +76,16 @@ class CategorieController extends Controller
      */
     public function destroy(Categorie $categorie)
     {
-        //
+        try{
+            $categorie->delete();
+            return response()->json([
+                'status_code' =>200,
+                'status_message' =>'la categorie a été supprimer avec succès',
+                'data' =>$categorie
+                ]);
+            } catch (Exception $e) {
+               return response()->json($e);
+            }
+            
     }
 }

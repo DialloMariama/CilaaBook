@@ -24,7 +24,7 @@ class ModifierCategorieRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required',
+            'nom' => ['required', 'regex:/^[A-Za-z\s\-]+$/'],
         ];
     }
 

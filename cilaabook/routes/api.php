@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::put('/modifierCategorie/{id}',[CategorieController::class,'update']);
-
+Route::delete('/supprimerCategorie/{categorie}',[CategorieController::class,'destroy']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
