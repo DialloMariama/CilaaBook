@@ -24,12 +24,12 @@ class StorePorteurprojetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required|min:5|regex:/^[a-zA-Z\s]+$/',
-            'email' => 'required|email|unique:porteurprojets,email',
-            'password' => 'required|min:8',
-            'adresse' => 'required|min:5|regex:/^[a-zA-Z\s]+$/',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-            'telephone' => 'required|regex:/^(70|75|76|77|78)[0-9]{7}$/',
+            'nom' => ['required', 'min:5', 'regex:/^[a-zA-Z\s]+$/'],
+            'email' => ['required', 'email', 'unique:porteurprojets,email'],
+            'password' => ['required','min:8'],
+            'adresse' => ['required','regex:/^[a-zA-Z\s]+$/'],
+            'image' => ['required','image','mimes:jpeg,png,jpg,gif'],
+            'telephone' => ['required','regex:/^(70|75|76|77|78)[0-9]{7}$/'],
         ];
     }
     public function failedValidation(validator $validator ){

@@ -16,12 +16,13 @@ return new class extends Migration
             $table->string('nom');
             $table->string('adresse');
             $table->string('telephone');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->enum('statut', ['personne','entreprise']);
             $table->string('role')->default('bailleur');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

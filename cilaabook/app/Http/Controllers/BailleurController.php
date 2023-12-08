@@ -13,26 +13,25 @@ class BailleurController extends Controller
 {
     public function create(StoreBailleurRequest $request)
     {
-        try {    
-           $bailleur = new bailleur();
-           $bailleur-> nom = $request->nom;
-           $bailleur-> email = $request->email;
-           $bailleur-> telephone = $request->telephone;
-           $bailleur-> password = Hash::make ($request->password);
-           $bailleur-> adresse = $request->adresse;
-           $bailleur-> statut = $request->statut;
-           $image = $request->file('image');
-           if ($image !== null && !$image->getError()) {
-            $bailleur->image = $image->store('images', 'public');
-           }
-           $bailleur->save();  
+        try {
+            $bailleur = new Bailleur();
+            $bailleur->nom = $request->nom;
+            $bailleur->email = $request->email;
+            $bailleur->telephone = $request->telephone;
+            $bailleur->password = Hash::make($request->password);
+            $bailleur->adresse = $request->adresse;
+            $bailleur->statut = $request->statut;
+            $image = $request->file('image');
+            if ($image !== null && !$image->getError()) {
+                $bailleur->image = $image->store('images', 'public');
+            }
+            $bailleur->save();
 
             return response()->json([
                 'status' => true,
                 'message' => 'Le bailleur a bien été inscrit',
                 'token' => $bailleur->createToken("API TOKEN")->plainTextToken
             ], 200);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -49,11 +48,11 @@ class BailleurController extends Controller
     public function login(LoginBailleur $request)
     {
         try {
-            
 
-            if(!Auth::guard('bailleur')->attempt($request->only(['email', 'password']))){
+
+            if (!Auth::guard('bailleur')->attempt($request->only(['email', 'password']))) {
                 return response()->json([
-                    'status' => true,
+                    'status' => false,
                     'message' => 'Email & Password does not match with our record.',
                 ], 401);
             }
@@ -62,14 +61,31 @@ class BailleurController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Le bailleur est connecté avec succés',
-                'token' =>Auth::guard('bailleur')->user()->createToken("API TOKEN")->plainTextToken
+                'token' => Auth::guard('bailleur')->user()->createToken("API TOKEN")->plainTextToken
             ], 200);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+
+
+    public function getAllBailleurs()
+    {
+        $bailleurs = Bailleur::all();
+        return response()->json(['bailleurs' => $bailleurs], 200);
+    }
+
+    public function logout()
+    {
+        // dd(Auth::guard('bailleur')->check());
+        // if (Auth::guard('bailleur')->check()) {
+        
+        Auth::guard('bailleur')->logout();
+
+        return response()->json(['message' => 'Le baillleur est deconnecté avec succès']);
+        // }
     }
 }
