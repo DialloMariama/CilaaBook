@@ -55,7 +55,7 @@ class PorteurprojetController extends Controller
 
             if(!Auth::guard('porteurprojet')->attempt($request->only(['email', 'password']))){
                 return response()->json([
-                    'status' => true,
+                    'status' => false,
                     'message' => 'Email & Password does not match with our record.',
                 ], 401);
             }
@@ -82,4 +82,12 @@ class PorteurprojetController extends Controller
             'formLogin'=> route('login')
         ]) ;
     }
+
+    public function logout()
+{
+    Auth::guard('porteurprojet')->logout(); // Utiliser 'bailleur' au lieu de 'api'
+
+    return response()->json(['message' => 'Le porteur de projet est deconnecté avec succès']);
+}
+
 }

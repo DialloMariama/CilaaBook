@@ -23,16 +23,20 @@ Route::post('login',[PorteurprojetController::class,"login"]);
 Route::get('formLogin',[PorteurprojetController::class,"edit"])->name('login');
 
 
-Route::post('registerBailleur',[BailleurController::class,"create"]);
-Route::post('loginBailleur',[BailleurController::class,"login"]);
 
 Route::middleware(['auth:sanctum', 'porteurprojet'])->group ( function () {
+    Route::post('logoutPorteurprojet', [PorteurprojetController::class, 'logout']);
    
 });
 
+
+Route::post('registerBailleur',[BailleurController::class,"create"]);
+Route::post('loginBailleur',[BailleurController::class,"login"]);
+
 Route::middleware(['auth:sanctum', 'bailleur'])->group ( function () {
-  
+    Route::post('logoutBailleur', [BailleurController::class, 'logout']);
  });
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

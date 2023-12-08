@@ -53,7 +53,7 @@ class BailleurController extends Controller
 
             if(!Auth::guard('bailleur')->attempt($request->only(['email', 'password']))){
                 return response()->json([
-                    'status' => true,
+                    'status' => false,
                     'message' => 'Email & Password does not match with our record.',
                 ], 401);
             }
@@ -71,5 +71,13 @@ class BailleurController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+        
     }
+    public function logout()
+    {
+        Auth::guard('bailleur')->logout();
+    
+        return response()->json(['message' => 'Le baillleur est deconnecté avec succès']);
+    }
+    
 }
