@@ -12,6 +12,6 @@ class CategorieSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+         \App\Models\Categorie::factory(2)->create();
     }
 }

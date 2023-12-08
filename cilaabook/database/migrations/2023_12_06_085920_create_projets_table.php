@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('categorie_id');
             $table->unsignedBigInteger('porteurprojet_id');
-            $table->string('titre');
+            $table->string('titre')->unique();
             $table->text('description');
             $table->string('image');
             $table->enum('statut', ['finance','pas_finance'])->default('pas_finance');

@@ -12,6 +12,6 @@ class PorteurprojetSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\Porteurprojet::factory(2)->create();
     }
 }

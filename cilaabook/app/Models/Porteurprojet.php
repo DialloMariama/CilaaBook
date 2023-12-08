@@ -2,9 +2,9 @@
 namespace App\Models;
 
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\Porteurprojet as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\Porteurprojet as Authenticatable;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -12,6 +12,7 @@ class Porteurprojet extends Authenticatable
 {
     use HasFactory, HasApiTokens, Notifiable;
 
+    use HasFactory,HasFactory, Notifiable;
     protected $fillable = [
         "nom",
         "adresse",
@@ -21,6 +22,7 @@ class Porteurprojet extends Authenticatable
         "telephone",
         "is_deleted",
 
+      
     ];
     public function projets()
     {

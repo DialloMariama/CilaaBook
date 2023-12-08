@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('bailleurs', function (Blueprint $table) {
             $table->id();
+           
             $table->string('nom');
             $table->string('adresse');
             $table->string('telephone');
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_deleted')->default(false);
+           
             $table->timestamps();
         });
     }
