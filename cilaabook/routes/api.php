@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\BailleurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
