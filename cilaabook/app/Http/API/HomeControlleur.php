@@ -5,6 +5,8 @@ namespace App\Http\API;
 use App\Models\Projet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Categorie;
+use App\Models\Porteurprojet;
 
 class HomeControlleur extends Controller
 {
@@ -16,7 +18,9 @@ class HomeControlleur extends Controller
       
         return response()->json([
             'statu'=>1,
-            'projet'=>Projet::orderBy('created_at', 'desc')->paginate(25)->where('is_deleted', 0),
+            'projets'=>Projet::orderBy('created_at', 'desc')->paginate(25)->where('is_deleted', 0),
+            'categories'=>Categorie::pluck('nom')->toArray(),
+
         ]);
        
     }
@@ -43,9 +47,14 @@ class HomeControlleur extends Controller
     public function show(Projet $projet)
     {
         if($projet){
+          
+            $porteurprojet= Porteurprojet::where('id', $projet->porteurprojet_id)->first();
+            $tousCesProjet= Projet::where('porteurprojet',$projet->porteurprojet_id);
             return response()->json([
                 'statu'=>1,
-                'projet'=>$projet,
+                'le_projet_demander'=>$projet,
+                'tousCesProjet'=>$tousCesProjet,
+                'porteurprojet'=>$porteurprojet
             ]);
         }else{
             return response()->json([

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,15 @@ class PorteurprojetFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nom' => fake()->name(),
+            'telephone' => fake()->phoneNumber(),
+            'adresse' => fake()->address(),
+
+
+            'email' => fake()->unique()->safeEmail(),
+            'email_verified_at' => now(),
+            'password' => 'password',
+
         ];
     }
 }

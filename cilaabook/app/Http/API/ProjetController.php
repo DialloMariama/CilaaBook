@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\API;
-
+use App\Exceptions\MonException;
 use App\Models\Projet;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProjetRequest;
 use App\Http\Requests\UpdateProjetRequest;
+use App\Models\Categorie;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ProjetController extends Controller
@@ -17,14 +18,23 @@ class ProjetController extends Controller
      */
     public function index()
     {
-         
-        return response()->json([
-            'statut'=>1,
-           
-            'projets' =>$projet = Projet::where('is_deleted', 0)
-            ->where('porteurprojet_id', 1)
-            ->get(),
-        ]);
+         $projet = Projet::where('is_deleted', 0)
+        ->where('porteurprojet_id', 1)
+        ->get();
+        if($projet){
+            return response()->json([
+                'statut'=>1,
+               
+                'projets' => $projet,
+            ]);
+        }else{
+            return response()->json([
+                'statut'=>0,
+               
+                'projets' =>'Aucun projet enregistré',
+            ]);
+        }
+       
 
     }
 
@@ -35,7 +45,7 @@ class ProjetController extends Controller
     {
         return response()->json([
             'statut'=>1,
-           
+            'categories'=>Categorie::pluck('nom', 'id')->toArray(),
             'form_url' => route('storeProjet'),
         ]);
     }
@@ -45,7 +55,7 @@ class ProjetController extends Controller
      */
     public function store(StoreProjetRequest $request)
     {
-        dump('route store');
+       try {
         $donneeProjetValide = $request->validated();
         $image = $request->file('image');
 
@@ -54,7 +64,7 @@ class ProjetController extends Controller
         }
         $idPersonneConnecter=1;
         $donneeProjetValide['is_deleted']=0;
-        $donneeProjetValide['porteurprojet']=$idPersonneConnecter;
+        $donneeProjetValide['porteurprojet_id']=$idPersonneConnecter;
         
         $projet = new Projet($donneeProjetValide);
 
@@ -69,6 +79,13 @@ class ProjetController extends Controller
                 "message" => "le projet n'a pas été enregistrer"
             ]);
         }
+       } catch (\Throwable $th) {
+        return response()->json([
+            "status" => 0,
+            "messageErreur" => "Ce titre est simulaire à un des projet existant dans la plateforme",
+        ]);
+       }
+        
     }
 
 
@@ -106,6 +123,7 @@ class ProjetController extends Controller
          
             return response()->json([
                 'statut'=>1,
+                'categories'=>Categorie::pluck('nom', 'id')->toArray(),
                 'projet' => $projet,
                 'form_url' => route('updateProjet', $projet->id),
             ]);
