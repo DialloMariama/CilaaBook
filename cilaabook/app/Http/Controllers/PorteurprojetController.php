@@ -89,10 +89,15 @@ class PorteurprojetController extends Controller
         return response()->json(['porteurprojets' => $porteurprojets], 200);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::guard('porteurprojet')->logout();
-
-        return response()->json(['message' => 'Le porteur de projet est deconnecté avec succès']);
+        $request->user()->tokens()->delete();
+        return response()->json(['message' => 'Porteur de projet déconnecté avec succès']);
     }
+    // public function logout()
+    // {
+    //     Auth::guard('porteurprojet')->logout();
+
+    //     return response()->json(['message' => 'Le porteur de projet est deconnecté avec succès']);
+    // }
 }

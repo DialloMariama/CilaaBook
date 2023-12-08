@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bailleur;
+use Illuminate\Http\Request;
 use App\Http\Requests\LoginBailleur;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -49,14 +50,12 @@ class BailleurController extends Controller
     {
         try {
 
-
             if (!Auth::guard('bailleur')->attempt($request->only(['email', 'password']))) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Email & Password does not match with our record.',
                 ], 401);
             }
-
 
             return response()->json([
                 'status' => true,
@@ -71,21 +70,27 @@ class BailleurController extends Controller
         }
     }
 
-
     public function getAllBailleurs()
     {
         $bailleurs = Bailleur::all();
         return response()->json(['bailleurs' => $bailleurs], 200);
     }
-
-    public function logout()
+    public function logout(Request $request)
     {
-        // dd(Auth::guard('bailleur')->check());
-        // if (Auth::guard('bailleur')->check()) {
-        
-        Auth::guard('bailleur')->logout();
-
-        return response()->json(['message' => 'Le baillleur est deconnecté avec succès']);
-        // }
+        $request->user()->tokens()->delete();
+        return response()->json(['message' => 'Bailleur déconnecté avec succès']);
     }
+    // public function logout()
+    // {
+    //     // dd(Auth::guard('bailleur')->check());
+    //     // if (Auth::guard('bailleur')->check()) {
+        
+    //     Auth::guard('bailleur')->logout();
+
+    //     return response()->json(['message' => 'Le baillleur est deconnecté avec succès']);
+    //     // }else{
+    //     // return response()->json(['message' => 'Le baillleur est pas connecté']);
+
+    //     // }
+    // }
 }

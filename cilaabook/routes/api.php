@@ -19,13 +19,20 @@ use App\Models\Porteurprojet;
 */
 Route::post('loginAdmin',[UserController::class,"login"]);
 Route::middleware(['auth:sanctum', 'isAdmin'])->group ( function () {
+    
+    Route::get('PorteurprojetUnblock', [UserController::class,'getAllPorteurprojetsUnblock']);
+    Route::get('PorteurprojetBlock', [UserController::class,'getAllPorteurprojetsBlock']);
+    Route::get('blockPorteurprojet/{porteurprojet}', [UserController::class,'blockPorteurprojet']);
+    Route::get('unblockPorteurprojet/{porteurprojet}', [UserController::class,'unblockPorteurprojet']);
+
+    Route::get('BailleurUnblock', [UserController::class,'getAllBailleursUnblock']);
+    Route::get('BailleurBlock', [UserController::class,'getAllBailleursBlock']);
+    Route::get('blockBailleur/{bailleur}', [UserController::class,'blockBailleur']);
+    Route::get('unblockBailleur/{bailleur}', [UserController::class,'unblockBailleur']);
+    
     Route::post('logoutAdmin', [UserController::class, 'logout']);
-    Route::get('getallPorteurprojet', [UserController::class,'getAllPorteurprojetsForAdmin']);
-    Route::get('getallBailleur', [UserController::class,'getAllBailleursForAdmin']);
 
 });
-
-
 
 
 Route::post('register',[PorteurprojetController::class,"create"]);
