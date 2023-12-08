@@ -21,6 +21,8 @@ class Bailleur extends Authenticatable
         "password",
         "statut",
         "telephone",
+        "is_deleted",
+
     ];
     public function projets()
     {

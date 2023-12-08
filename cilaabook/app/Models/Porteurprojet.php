@@ -19,6 +19,8 @@ class Porteurprojet extends Authenticatable
         "image",
         "password",
         "telephone",
+        "is_deleted",
+
     ];
     public function projets()
     {
