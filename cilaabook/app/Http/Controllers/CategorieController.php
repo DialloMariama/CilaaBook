@@ -8,6 +8,13 @@ use App\Http\Requests\StoreCategorieRequest;
 use App\Http\Requests\UpdateCategorieRequest;
 use App\Http\Requests\ModifierCategorieRequest;
 
+/**
+ 
+*@OA\Tag(
+*name="",
+*description="Endpoints pour la suppression d'une categorie"
+*)
+*/
 class CategorieController extends Controller
 {
     /**
@@ -50,9 +57,30 @@ class CategorieController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+   /**
+     
+*@OA\Put(
+*path="/api/modifierCategorie/{id}",
+*summary="Cet endpoint permet de modifier une catégorie",
+*tags={"Modifier Catégorie"},
+*@OA\RequestBody(
+*required=true,
+*@OA\JsonContent(
+*@OA\Property(property="contenu", type="string", example="modifier"),
+*),
+*),
+*@OA\Response(
+*response=200,
+*description="Catégorie modifiée avec succès",
+*),
+*@OA\Response(
+*response=401,
+*description="Non autorisé",
+*),
+*)
+*/
+
+     
     public function update(ModifierCategorieRequest $request, $id)
     {
         try{
@@ -71,9 +99,28 @@ class CategorieController extends Controller
     }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+     /**
+     
+*@OA\Put(
+*path="/api/supprimerCategorie/{categorie}",
+*summary="Cet endpoint permet de supprimer une catégorie",
+*tags={"Modifier Catégorie"},
+*@OA\RequestBody(
+*required=true,
+*@OA\JsonContent(
+*@OA\Property(property="contenu", type="string", example="supprimer"),
+*),
+*),
+*@OA\Response(
+*response=200,
+*description="Catégorie supprimée avec succès",
+*),
+*@OA\Response(
+*response=401,
+*description="Non autorisé",
+*),
+*)
+*/
     public function destroy(Categorie $categorie)
     {
         try{

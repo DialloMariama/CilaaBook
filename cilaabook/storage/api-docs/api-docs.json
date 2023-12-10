@@ -1,0 +1,53 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Cilabook",
+        "description": "Cette API va permettre de faire communiquer la partie frontale et la partie dorsale de notre plateforme",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/registerBailleur": {
+            "post": {
+                "tags": [
+                    "Liste Bailleurs"
+                ],
+                "summary": "Cette url permet d'afficher la Liste des bailleurs",
+                "operationId": "6aa482081206a8c403489a5213127f54",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "contenu": {
+                                        "type": "string",
+                                        "example": "liste"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Liste bailleurs affichée"
+                    },
+                    "401": {
+                        "description": "Non autorisé"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "",
+            "description": "Endpoints pour la gestion des bailleurs"
+        },
+        {
+            "name": "",
+            "description": "Endpoints pour la gestion des bailleurs"
+        }
+    ]
+}

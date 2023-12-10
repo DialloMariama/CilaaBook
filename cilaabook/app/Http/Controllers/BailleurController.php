@@ -12,6 +12,8 @@ use App\Http\Requests\UpdateBailleurRequest;
 
 class BailleurController extends Controller
 {
+
+
     public function create(StoreBailleurRequest $request)
     {
         try {
@@ -69,6 +71,29 @@ class BailleurController extends Controller
             ], 500);
         }
     }
+
+      /**
+     
+*@OA\Post(
+*path="/api/registerBailleur",
+*summary="Cette url permet d'afficher la Liste des bailleurs",
+*tags={"Liste Bailleurs"},
+*@OA\RequestBody(
+*required=true,
+*@OA\JsonContent(
+*@OA\Property(property="contenu", type="string", example="liste"),
+*),
+*),
+*@OA\Response(
+*response=200,
+*description="Liste bailleurs affichée",
+*),
+*@OA\Response(
+*response=401,
+*description="Non autorisé",
+*),
+*)
+*/
 
     public function getAllBailleurs()
     {

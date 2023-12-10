@@ -74,3 +74,6 @@ Route::get('indexHome', [HomeControlleur::class, 'index'])->name('indexHome');
 Route::get('showHome/{projet}', [HomeControlleur::class, 'show'])->name('showHome');
 //Route pour gerer l'envoie des mails entre bayeur et porteur de projet
 Route::post('storeContact/{projet}', [ContactPorteurProjetControlleur::class, 'store'])->name('storeContact');
+
+Route::put('/modifierCategorie/{id}',[CategorieController::class,'update']);
+Route::delete('/supprimerCategorie/{categorie}',[CategorieController::class,'destroy']);
