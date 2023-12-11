@@ -8,27 +8,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Response;
 
-class Bailleur
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    // public function handle(Request $request, Closure $next): Response
-    // {
-    //     return $next($request);
-    // }
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check()) {
-            if (Auth::user()->role == "bailleur") {
-                return $next($request);
-        } else {
-            return  Redirect::to('/');
+         // dd(Auth::check() && Auth::user()->role->nom ==='admin');
+        if(Auth::check() && Auth::user()->role->nom ==='admin'){
+
+            return $next($request);
+        }else{
+            return response()->json([
+                'error' => 'Unauthorized',
+        ], 403);
         }
     }
-    return $next($request);
-
-}
 }

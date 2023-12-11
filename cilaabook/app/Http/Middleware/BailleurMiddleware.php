@@ -8,22 +8,29 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Response;
 
-class Porteurprojet
+class BailleurMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+    // public function handle(Request $request, Closure $next): Response
+    // {
+    //     return $next($request);
+    // }
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check()) {
-            if (Auth::user()->role == "porteurprojet") {
-                return $next($request);
-        } else {
-            return  Redirect::to('/');
+        if(Auth::check() && Auth::user()->role->nom ==='bailleur' ){
+
+            return $next($request);
+        }else{
+            return response()->json([
+                'error' => 'Unauthorized',
+
+            ], 401); 
         }
-    }
-    return $next($request);
-    }
+
+
+}
 }

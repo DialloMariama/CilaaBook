@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StorePorteurprojetRequest extends FormRequest
+class StoreRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,13 @@ class StorePorteurprojetRequest extends FormRequest
     {
         return [
             'nom' => ['required', 'min:5', 'regex:/^[a-zA-Z\s]+$/'],
-            'email' => ['required', 'email', 'unique:porteurprojets,email'],
+            'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required','min:8'],
-            'adresse' => ['required','regex:/^[a-zA-Z\s]+$/'],
-            'image' => ['required','image','mimes:jpeg,png,jpg,gif'],
+            'role_id' => ['required'],
+            'adresse' => ['required'],
+            'image' => ['required','image','mimes:jpeg,png,jpg'],
             'telephone' => ['required','regex:/^(70|75|76|77|78)[0-9]{7}$/'],
+           
         ];
     }
     public function failedValidation(validator $validator ){
@@ -46,9 +48,11 @@ class StorePorteurprojetRequest extends FormRequest
         return [
             'nom.required'=> 'Le champs nom est obligatoire',
             'email.required'=> 'Le champs email est obligatoire',
+            'role_id.required'=> 'Le champs role est obligatoire',
             'adresse.required'=> 'Le champs adresse est obligatoire',
             'telephone.required'=> 'Le champs telephone est obligatoire et doit commencer par 78 ou 77 ou 76 ou 70',
             'password.required'=> 'Le champs mot de passe est obligatoire et doit contenir minimum 8 caracteres',
+            
         ];
     }
 }

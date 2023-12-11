@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -17,13 +19,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'user',
-
-    ];
+    protected $guarded = [
+        'id'
+     ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,4 +42,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+  /**
+   *Get the role for the user.
+   */
+
+public function role(): BelongsTo{
+    return $this->belongsTo(Role::class);}
+
+    /** 
+     * 
+     * Get the projet for the user.
+     * */
+public function projets(): HasMany{
+    return $this->HasMany(Projet::class);}
+    
+    /**
+    *Get the lessorProjet for the projet.
+    */
+public function lessorProjets(): HasMany{
+  return $this->HasMany(lessorProjet::class);}
 }

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Response;
 
-class Admin
+class PorteurMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,13 +17,16 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check()) {
-            if (Auth::user()->role == "admin") {
-                return $next($request);
-            } else {
-                return  Redirect::to('/');
-            }
-        }
+        if(Auth::check() && Auth::user()->role->nom =='porteurprojet' )
+        {
+
         return $next($request);
+    }else{
+        return response()->json([
+            'error' => 'Unauthorized',
+
+
+        ], 401); 
+    }
     }
 }
