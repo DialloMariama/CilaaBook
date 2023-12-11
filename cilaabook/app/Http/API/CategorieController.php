@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use App\Models\Categorie;
 use App\Http\Requests\StoreCategorieRequest;
 use App\Http\Requests\UpdateCategorieRequest;
-use App\Http\Requests\ModifierCategorieRequest;
 
 class CategorieController extends Controller
 {
@@ -53,22 +51,9 @@ class CategorieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ModifierCategorieRequest $request, $id)
+    public function update(UpdateCategorieRequest $request, Categorie $categorie)
     {
-        try{
-           
-        $categorie=Categorie::findOrFail($id);
-        $categorie->nom=$request->nom;
-        $categorie->save();
-
-        return response()->json([
-        'status_code' =>200,
-        'status_message' =>'la categorie est ajoutée avec succès',
-        'data' =>$categorie
-        ]);
-    } catch (Exception $e) {
-       return response()->json($e);
-    }
+        //
     }
 
     /**
@@ -76,16 +61,6 @@ class CategorieController extends Controller
      */
     public function destroy(Categorie $categorie)
     {
-        try{
-            $categorie->delete();
-            return response()->json([
-                'status_code' =>200,
-                'status_message' =>'la categorie a été supprimer avec succès',
-                'data' =>$categorie
-                ]);
-            } catch (Exception $e) {
-               return response()->json($e);
-            }
-            
+        //
     }
 }

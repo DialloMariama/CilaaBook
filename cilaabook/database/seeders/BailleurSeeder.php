@@ -12,6 +12,7 @@ class BailleurSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+                \App\Models\Bailleur::factory(4)->create();
+
     }
 }

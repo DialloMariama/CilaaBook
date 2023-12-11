@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProjetRequest extends FormRequest
+class ModifierCategorieRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,27 +21,28 @@ class UpdateProjetRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules()
+    public function rules(): array
     {
-
         return [
-            "titre" => ['required', 'min:8'],
-            "description" => ['required', 'regex:/^[a-zA-Z0-9\s]{3,}$/'],
-            "statut" => ['required'],
-            "image" => ['required', 'image'],
-            "categorie_id" => ['required'],
-            
+            'nom' => ['required', 'regex:/^[A-Za-z\s\-]+$/'],
         ];
     }
 
-
-    protected function failedValidation(Validator $validator)
+    public function failedValidation(Validator $validator)
     {
-        $errors = $validator->errors();
-
         throw new HttpResponseException(response()->json([
-
-            'errors' => $errors,
-        ], 422));
+            'success' => false,
+            'error' => true,
+            'message' =>'Erreur de validation',
+            'errorList' => $validator->errors()
+        ]));
     }
+public function messages()
+{
+    return[
+'nom.required' => 'Un nom doit etre fourni'
+    ];
+}
+
+
 }

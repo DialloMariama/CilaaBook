@@ -100,4 +100,9 @@ class PorteurprojetController extends Controller
 
     //     return response()->json(['message' => 'Le porteur de projet est deconnecté avec succès']);
     // }
+    /**
+     * Show the form for editing the specified resource.
+     */
+    
+    
 }

@@ -17,7 +17,18 @@ class BailleurFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nom' => fake()->name(),
+            'telephone' => fake()->phoneNumber(),
+            'adresse' => fake()->address(),
+            'statut' => 'personne',
+
+
+
+            'email' => fake()->unique()->safeEmail(),
+            'email_verified_at' => now(),
+            'password' => 'password',
+
+
         ];
     }
 }
