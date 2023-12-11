@@ -1,0 +1,6 @@
+{
+    "openapi": "3.0.0",
+    "info": {"title":"cilaa book",  "description":"une plateforme qui va faciliter la rencontre entre les porteurs de projets(entrepreneurs) et les bailleurs de se rencontrer"},
+    "paths": {}
+
+}

@@ -3,10 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-
-class LoginUser extends FormRequest
+use Illuminate\Http\Exceptions\HttpResponseException;
+class StoreRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +22,14 @@ class LoginUser extends FormRequest
      */
     public function rules(): array
     {
+        
         return [
-            'email'=>'required|email|exists:users,email',
-            'password'=>'required'
+            'nom' => ['required','string','min:2'],
+            'description' => ['required','string','max:255'],
+            
+           
         ];
     }
-
     public function failedValidation(validator $validator ){
         throw new HttpResponseException(response()->json([
             'success'=>false,
@@ -38,14 +39,14 @@ class LoginUser extends FormRequest
             'errorList'=>$validator->errors()
         ]));
     }
-
-    public function messages(){
+    public function messages(): array
+    {
         return [
-            'email.required'=>'Le champs email est requis',
-            'email.exists'=>'Cet email ne se trouve pas dans la base de données',
-            'email.email'=>'format email invalide',
-            'password.required'=>'le mot de passe est requis'
+            'nom.required'=> 'Le champs nom est obligatoire',
+            'description.required'=> 'Le champs description est obligatoire',
 
+            
+            
         ];
     }
 }
