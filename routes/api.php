@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
                         
 //Liste des catégorie
  Route::get('/listecate', [CategorieController::class, 'lsite_categorie']);
+ 
 //Créer une catégorie
  Route::post('/creercate', [CategorieController::class, 'store']); 
 

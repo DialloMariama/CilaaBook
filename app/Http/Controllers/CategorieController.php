@@ -45,12 +45,17 @@ class CategorieController extends Controller
         //Créer une catégorie
         $categorie = new Categorie();
         $categorie -> nom = $request -> nom;
-        $categorie -> save(); 
-
+        $categorie -> description = $request -> description;
+       if($categorie -> save()){
         //renvoie de reponse personnalisée
         return response()->json([
             "message" => "Catégorie créer avec succéss"
-        ]);
+        ], 200);
+       } else{
+        return response()->json([
+            "message" => "Catégorie non enregistrer"
+        ], 500);
+       }
     }
 
     /**
