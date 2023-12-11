@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('porteurprojets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('nom');
+            $table->string('name');
             $table->string('adresse');
             $table->string('telephone');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

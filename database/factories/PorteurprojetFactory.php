@@ -17,7 +17,13 @@ class PorteurprojetFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'adresse' => fake()->address(),
+            'email' => fake()->unique()->safeEmail(),
+            'email_verified_at' => now(),
+            'password' => 'password',
+            'telephone' => fake()->unique()->phoneNumber(),
         ];
+
     }
 }

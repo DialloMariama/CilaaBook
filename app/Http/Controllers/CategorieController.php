@@ -41,10 +41,6 @@ class CategorieController extends Controller
      */
     public function store(StoreCategorieRequest $request)
     {
-        //Validation
-        $request -> validate([
-            'nom'
-        ]);
 
         //Créer une catégorie
         $categorie = new Categorie();
