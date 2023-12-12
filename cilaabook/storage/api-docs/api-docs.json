@@ -1,6 +1,440 @@
 {
     "openapi": "3.0.0",
-    "info": {"title":"cilaa book",  "description":"une plateforme qui va faciliter la rencontre entre les porteurs de projets(entrepreneurs) et les bailleurs de se rencontrer"},
-    "paths": {}
-
+    "info": {
+        "title": "CILABOOK",
+        "description": "Cette api nous permet de faire communiquer la partie frontale et la partie dorsale de notre plateforme",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Inscription"
+                ],
+                "summary": "Inscrire un Utilisateur",
+                "operationId": "",
+                "responses": {
+                    "200": {
+                        "description": "Inscrire un utilisateur"
+                    },
+                    "500":{
+                        "description": "Inscription échouée"
+                    }
+                }
+            }
+        },
+"/api/login": {
+            "post": {
+                "tags": [
+                    "Connexion"
+                ],
+                "summary": "Connecter un Utilisateur",
+                "operationId": "",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                   
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Connexion Utilisateur réussie"
+                    },
+                    "401":{
+                        "description": "Non autorisée"
+                    }
+                }
+            }
 }
+,
+"/api/logout": {
+    "get": {
+        "tags": [
+            "Déconnexion"
+        ],
+        "summary": "Déconnecter un Utilisateur",
+        "operationId": "",
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "properties": {
+                            
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "Déconnecté"
+            }
+        }
+    }
+},
+"/api/utilisateurNonBloquer": {
+    "get": {
+        "tags": [
+            "Liste des Utilisateurs actifs"
+        ],
+        "summary": "Afficher les utilisateurs actifs",
+        "operationId": "",
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "properties": {
+                            
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "utilisateurs non bloqués"
+            },
+            "401":{
+                "description": "Non autorisée"
+            }
+        }
+    }
+},
+"/api/utilisateurBloquer": {
+    "get": {
+        "tags": [
+            "Liste Utilisateurs bloqués"
+        ],
+        "summary": "Afficher Utilisateurs bloqués",
+        "operationId": "",
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "properties": {
+                            
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "utilisateurs bloqués"
+            },
+            "401":{
+                "description": "Non autorisée"
+            }
+        }
+    }
+},
+"/api/toutPorteurNonBloquer": {
+    "get": {
+        "tags": [
+            "Liste PorteurProjet Actifs"
+        ],
+        "summary": "Afficher PorteurProjet Actifs",
+        "operationId": "",
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "properties": {
+                            
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": " PorteursProjets actifs"
+            },
+            "401":{
+                "description": "Non autorisée"
+            }
+        }
+    }
+},
+"/api/toutBailleurNonBloquer": {
+    "get": {
+        "tags": [
+            "Liste Bailleurs Actifs"
+        ],
+        "summary": "Afficher Bailleurs Actifs",
+        "operationId": "",
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "properties": {
+                            
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": " Bailleurs actifs"
+            },
+            "401":{
+                "description": "Non autorisée"
+            }
+        }
+    }
+},
+"/api/bloquerUtilisateur/{user}": {
+    "post": {
+        "tags": [
+            "Bloquer un Utilisateur"
+        ],
+        "summary": "Blocage d'un Utilisateur",
+        "operationId": "",
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "properties": {
+                            
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "Utilisateur Bloqué"
+            },
+            "401":{
+                "description": "Non autorisée"
+            }
+        }
+    }
+},
+"/api/toutPorteurBloquer": {
+    "get": {
+        "tags": [
+            "Liste PorteurProjets bloqués"
+        ],
+        "summary": "Afficher PorteurProjet bloqués",
+        "operationId": "",
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "properties": {
+                            
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": " PorteursProjets bloqués"
+            },
+            "401":{
+                "description": "Non autorisée"
+            }
+        }
+    }
+},
+"/api/toutBailleurBloquer": {
+    "get": {
+        "tags": [
+            "Liste Bailleurs bloqués"
+        ],
+        "summary": "Afficher Bailleurs bloqués",
+        "operationId": "",
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "properties": {
+                            
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": " Bailleurs bloqués"
+            },
+            "401":{
+                "description": "Non autorisée"
+            }
+        }
+    }
+},
+"/api/debloquerUtilisateur/{user}": {
+    "post": {
+        "tags": [
+            "Débloquer un utilisateur"
+        ],
+        "summary": "déblocage d'un utilisateur",
+        "operationId": "",
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "properties": {
+                            
+                        },
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "Utilisateur Débloqué"
+            },
+            "401":{
+                "description": "Non autorisée"
+            }
+        }
+    }}
+    ,
+    "/api/categorie": {
+        "post": {
+            "tags": [
+                "Créer une Catégorie"
+            ],
+            "summary": "Création d'une catégorie",
+            "operationId": "",
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Catégorie crée"
+                },
+                "500":{
+                    "description": "Echec création"
+                }
+            }
+        }
+    },
+    "/api/categorie/{categorie}": {
+        "get": {
+            "tags": [
+                "Liste Catégorie"
+            ],
+            "summary": "Afficher une catégorie",
+            "operationId": "",
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Liste Catégorie"
+                },
+                "401":{
+                    "description": "Non autorisée"
+                }}}},
+    "/api/categorie/modifie": {
+    "put": {
+            "tags": [
+                "Modifier Catégorie"
+            ],
+            "summary": "Modification d'une catégorie",
+            "operationId": "",
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": " Catégorie Modifiée"
+                },
+                "401":{
+                    "description": "Non autorisée"
+                }
+            }
+        }
+    },
+    "/api/categorie/suppression": {
+    "delete": {
+            "tags": [
+                "Supprimer une Catégorie"
+            ],
+            "summary": "suppression d'une catégorie",
+            "operationId": "",
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": " Catégorie supprimée"
+                },
+                "401":{
+                    "description": "Non autorisée"
+                }
+            }
+        }
+    }}}

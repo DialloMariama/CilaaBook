@@ -9,7 +9,28 @@ use App\Http\Requests\StoreRegisterRequest;
 
 class AuthController extends Controller
 {
-
+    /**
+     
+*@OA\Post(
+*path="/api/register",
+*summary="Cette url permet d'inscrire un utilisateur",
+*tags={"Inscription des Utilisateurs"},
+*@OA\RequestBody(
+*required=true,
+*@OA\JsonContent(
+*@OA\Property(property="contenu", type="string", example="Inscription"),
+*),
+*),
+*@OA\Response(
+*response=200,
+*description="Liste bailleurs affichée",
+*),
+*@OA\Response(
+*response=401,
+*description="Non autorisé",
+*),
+*)
+*/
     public function enregistrerUtilisateur(StoreRegisterRequest $request)
     {
         $infoUtilisateurValide = $request->validated();
